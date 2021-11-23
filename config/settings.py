@@ -120,3 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+#화면 예쁘게 꾸미기 설정 파일에 스태틱 디레터리 위치 추가.
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]

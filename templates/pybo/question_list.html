@@ -2,12 +2,34 @@
 <!-- if question_list 는 question_list가 있다면-->
 <!-- for question in question_list는 qeustion_list를 반복하여 순차적으로 qustion에 대입-->
 <!-- question.id , question.subject : for문에 의해 대입된 question 객체의 id, subject 출력-->
-{% if question_list %}
-    <ul>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static  'bootstrap.min.css' %}">
+
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성일시</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% if question_list %}
         {% for question in question_list %}
-            <li> <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a></li>
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a></td>
+            <td>{{question.create_date}}</td>
+        </tr>
         {% endfor %}
-    </ul>
-{% else %}
-    <p>질문이 없습니다.</p>
-{% endif %}
+        {% else %}
+        <tr>
+            <td colspan="3"> 질문이 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+</div>
