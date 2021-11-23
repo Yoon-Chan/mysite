@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import Question
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from .forms import QuestionForm
+from .forms import QuestionForm, AnswerForm
 
 # Create your views here.
 def index(request):
@@ -29,14 +29,27 @@ def answer_create(request, question_id):
         pybo 답변 등록
     """
     question = get_object_or_404(Question, pk=question_id)
+
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.create_date = timezone.now()
+            answer.question = question
+            answer.save()
+            return redirect('pybo:detail', question_id=question_id)
+    else:
+        form = AnswerForm()
+    context = {'question' : question, 'form' : form}
+    return render(request,'pybo/question_detail.html',context)
+
     #answer_set은 Answer 모델이 Question 모델을 Foreign Key로 참조하고 있으므로 question.answer_set 같은 표현을 사용할 수 있다.
     #request.POST.get('content')는 name이 content인 값을 의미. POST 형식으로 전송된 form 데이터 항목을 부름.
-    question.answer_set.create(content=request.POST.get('content'),
-                               create_date = timezone.now())
+    #question.answer_set.create(content=request.POST.get('content'),
+    #                           create_date = timezone.now())
     #redirect함수는 함수에 전달된 값을 참고하여 페이지 이동을 수행.
     # 1번째 인수는 이동할 페이지의 별칭, 2번째 인수는 해당 URL에 전달해야하는 값을 입력.
-    return redirect('pybo:detail', question_id = question_id)
-
+    #return redirect('pybo:detail', question_id = question_id)
 
 def question_create(request):
     """

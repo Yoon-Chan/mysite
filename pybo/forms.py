@@ -1,5 +1,5 @@
 from django import forms
-from pybo.models import Question
+from pybo.models import Question, Answer
 
 # 장고 폼 작성하기
 #ModelForm을 상속받은 QuestionForm 클래스를 작성.
@@ -20,4 +20,13 @@ class QuestionForm(forms.ModelForm):
         labels = {
             'subject' : '제목',
             'content' : '내용',
+        }
+
+#답변 등록 기능에 장고 폼 적용하기
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ['content']
+        labels = {
+            'content' : '답변내용',
         }
