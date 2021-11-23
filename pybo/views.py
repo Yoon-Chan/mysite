@@ -41,6 +41,19 @@ def answer_create(request, question_id):
 def question_create(request):
     """
         pybo 질문 등록
+        질문목록을 버튼을 누르면 GET방식으로 요청되어 질문 등록 화면이 나타나고,
+        질문 등록 화면에서 입력값을 채우고 저장하기를 누르면 POST 방식으로 요청되어 데이터가 저장된다.
+        form.is_valid 함수는 POST 요청으로 받은 form이 유효한지 검사한다.
+        form.save 에서 commit=False는 임시저장을 얘기한다. 즉 실제 데이터는 아직 저장되지 않은 상태를 말한다.
     """
-    form = QuestionForm()
-    return render(request, 'pybo/question_form.html', {'form': form})
+    if request.method =='POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.create_date = timezone.now()
+            question.save()
+            return redirect('pybo:index')
+    else:
+        form = QuestionForm()
+    context = {'form' : form}
+    return render(request, 'pybo/question_form.html', context)
