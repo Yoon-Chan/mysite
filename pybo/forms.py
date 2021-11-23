@@ -12,10 +12,10 @@ class QuestionForm(forms.ModelForm):
         model = Question
         fields = ['subject', 'content']
         #폼에 부트스트랩 적용하기.
-        widgets ={
-            'subject' : forms.TextInput(attrs={'class' : 'form-control'}),
-            'content' : forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),
-        }
+        #widgets ={
+        #    'subject' : forms.TextInput(attrs={'class' : 'form-control'}),
+        #    'content' : forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),
+        #}
         #label 속성 수정하여 Subject, Content 한글로 변경하기
         labels = {
             'subject' : '제목',
