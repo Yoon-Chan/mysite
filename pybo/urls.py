@@ -2,6 +2,8 @@ from django.urls import path
 
 from . import views
 
+app_name = 'pybo'
+
 urlpatterns = [
     path('', views.index, name = 'index'),
     #URL 매핑을 통하여 질문 목록 보여주기
