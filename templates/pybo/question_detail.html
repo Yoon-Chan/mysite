@@ -5,3 +5,19 @@
 <div>
     {{ question.content }}
 </div>
+
+<h5>{{ question.answer_set.count }}개의 답변이 있습니다.</h5>
+<div>
+    <ul>
+        {% for answer in question.answer_set.all %}
+            <li> {{ answer.content }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<form action="{% url 'pybo:answer_create' question.id %}" method="post">
+    {% csrf_token %} <!--보안 관련 항목 from 엘리먼트를 통해 전송된 데이터가 실제로 웹 브라우저에서 작성된 데이터인진 판단하는 검사기 역할.
+    그러므로 form 아래에 무조건 작성해야한다.-->
+    <textarea name="content" id="content" rows="15"></textarea>
+    <input type="submit" value="답변 등록">
+</form>
