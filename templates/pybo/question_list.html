@@ -1,0 +1,13 @@
+<!-- question 질문 넣는 html-->
+<!-- if question_list 는 question_list가 있다면-->
+<!-- for question in question_list는 qeustion_list를 반복하여 순차적으로 qustion에 대입-->
+<!-- question.id , question.subject : for문에 의해 대입된 question 객체의 id, subject 출력-->
+{% if question_list %}
+    <ul>
+        {% for question in question_list %}
+            <li> <a href="/pybo/{{ question.id }}/">{{ question.subject }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>질문이 없습니다.</p>
+{% endif %}
