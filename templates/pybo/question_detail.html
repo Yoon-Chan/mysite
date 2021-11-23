@@ -1,7 +1,6 @@
 <!--질문을 눌렀을때 상세 내용이 나오도록 하는 html-->
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
-
+{% extends 'base.html' %}
+{% block content %}
 <div class="container my-3">
     <h2 class="border-bottom py-2">{{ question.subject }}</h2>
     <div class="card my-3">
@@ -45,6 +44,7 @@
         <input type="submit" value="답변 등록" class="btn btn-primary">
     </form>
 </div>
+{% endblock %}
 
 
 

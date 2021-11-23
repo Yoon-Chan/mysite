@@ -1,10 +1,10 @@
+
 <!-- question 질문 넣는 html-->
 <!-- if question_list 는 question_list가 있다면-->
 <!-- for question in question_list는 qeustion_list를 반복하여 순차적으로 qustion에 대입-->
 <!-- question.id , question.subject : for문에 의해 대입된 question 객체의 id, subject 출력-->
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static  'bootstrap.min.css' %}">
-
+{% extends 'base.html' %}
+{% block content %}
 <div class="container my-3">
     <table class="table">
         <thead>
@@ -33,3 +33,5 @@
     </table>
 
 </div>
+
+{% endblock %}
