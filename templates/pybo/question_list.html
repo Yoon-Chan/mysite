@@ -4,6 +4,7 @@
 <!-- for question in question_list는 qeustion_list를 반복하여 순차적으로 qustion에 대입-->
 <!-- question.id , question.subject : for문에 의해 대입된 question 객체의 id, subject 출력-->
 {% extends 'base.html' %}
+{% load pybo_filter %}
 {% block content %}
 <div class="container my-3">
     <table class="table">
@@ -19,7 +20,8 @@
         {% if question_list %}
         {% for question in question_list %}
         <tr>
-            <td>{{ forloop.counter }}</td>
+            <!--<td>{{ forloop.counter }}</td>-->
+            <td>{{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1}}</td>
             <td><a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a></td>
             <td>{{question.create_date}}</td>
         </tr>
