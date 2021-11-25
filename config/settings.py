@@ -27,10 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+#로그인 성공 시 자동으로 이동할 URL
+LOGIN_REDIRECT_URL = '/'
 # Application definition
 #pybo.apps.PyboConfig 추가. 이것은 pybo/apps.py 에 있는 클래스이다.
 INSTALLED_APPS = [
+    'common.apps.CommonConfig',
     'pybo.apps.PyboConfig',
     'django.contrib.admin',
     'django.contrib.auth',
