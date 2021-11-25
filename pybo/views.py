@@ -4,6 +4,7 @@ from .models import Question
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .forms import QuestionForm, AnswerForm
+from django.contrib.auth.decorators import  login_required
 
 #페이지 기능 구현하기 위한 사용 모듈
 from django.core.paginator import  Paginator
@@ -38,6 +39,7 @@ def detail(request, question_id):
     context = {'question' : question}
     return render(request, 'pybo/question_detail.html', context)
 
+@login_required(login_url='common:login')
 def answer_create(request, question_id):
     """
         pybo 답변 등록
@@ -66,6 +68,7 @@ def answer_create(request, question_id):
     # 1번째 인수는 이동할 페이지의 별칭, 2번째 인수는 해당 URL에 전달해야하는 값을 입력.
     #return redirect('pybo:detail', question_id = question_id)
 
+@login_required(login_url='common:login')
 def question_create(request):
     """
         pybo 질문 등록
