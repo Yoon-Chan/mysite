@@ -5,11 +5,25 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .forms import QuestionForm, AnswerForm
 
+#페이지 기능 구현하기 위한 사용 모듈
+from django.core.paginator import  Paginator
+
 # Create your views here.
 def index(request):
     # pybo 목록 출력(Question)
+
+    #입력 인자
+    page = request.GET.get('page', '1') #페이지
+
+    #조회
     question_list = Question.objects.order_by('-create_date')
-    context = {'question_list' : question_list}
+
+    #페이징 처리
+    paginator = Paginator(question_list, 10)
+    page_obj = paginator.get_page(page)
+
+    #리스트 내용
+    context = {'question_list' : page_obj}#question_list}
 
     #render로 화면 출력하기
     return render(request, 'pybo/question_list.html', context)
