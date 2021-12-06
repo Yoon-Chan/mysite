@@ -1,5 +1,5 @@
 from django import forms
-from pybo.models import Question, Answer
+from pybo.models import Question, Answer, Comment
 
 # 장고 폼 작성하기
 #ModelForm을 상속받은 QuestionForm 클래스를 작성.
@@ -29,4 +29,14 @@ class AnswerForm(forms.ModelForm):
         fields = ['content']
         labels = {
             'content' : '답변내용',
+        }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields =[
+            'content'
+        ]
+        label={
+            'content' : '댓글내용',
         }
