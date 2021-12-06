@@ -20,4 +20,10 @@ urlpatterns = [
          name='comment_modify_question'),
     path('comment/delete/question/<int:comment_id>/', views.comment_delete_question,
          name='comment_delete_question'),
+    path('comment/create/answer/<int:answer_id>/', views.comment_create_answer,
+         name='comment_create_answer'),
+    path('comment/modify/answer/<int:comment_id>', views.comment_modify_answer,
+         name='comment_modify_answer'),
+    path('comment/delete/answer/<int:comment_id>', views.comment_delete_answer,
+         name='comment_delete_answer'),
 ]
