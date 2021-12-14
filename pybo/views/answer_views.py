@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template.context_processors import request
 
 from ..models import Question,Answer
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, resolve_url
 from django.utils import timezone
 from ..forms import AnswerForm
 from django.contrib.auth.decorators import  login_required
@@ -24,7 +24,10 @@ def answer_create(request, question_id):
             answer.create_date = timezone.now()
             answer.question = question
             answer.save()
-            return redirect('pybo:detail', question_id=question_id)
+            return redirect('{}#answer_{}'.format(
+                resolve_url('pybo:detail', question_id=question_id),answer.id))
+            #redirect('pybo:detail', question_id=question_id)
+            # 앵커 엘리먼트를 포함하기위한 변경
     else:
         form = AnswerForm()
     context = {'question' : question, 'form' : form}
@@ -55,7 +58,11 @@ def answer_modify(request, answer_id):
             answer.author = request.user
             answer.modify_date = timezone.now()
             answer.save()
-            return redirect('pybo:detail', question_id = answer.question_id)
+            return redirect('{}#answer_{}'.format(
+                resolve_url('pybo:detail',question_id=answer.question.id),answer.id
+            ))
+            #앵커 엘리먼트를 위한 redirect 변경
+            #redirect('pybo:detail', question_id = answer.question_id)
 
     else:
         form = AnswerForm(instance=answer)

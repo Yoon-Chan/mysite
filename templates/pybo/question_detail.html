@@ -103,6 +103,10 @@
 
     <!--답변 내용-->
     {% for answer in question.answer_set.all %}
+    <!--질문 상세화면 앵커 엘리먼트 -->
+    <a name="answer_{{ answer.id }}"></a>
+
+
     <div class="row my-3">
         <div class="col-1"><!--추천 영역-->
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">
