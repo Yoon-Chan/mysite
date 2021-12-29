@@ -27,10 +27,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#로그인 성공 시 자동으로 이동할 URL
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Application definition
-
+#pybo.apps.PyboConfig 추가. 이것은 pybo/apps.py 에 있는 클래스이다.
 INSTALLED_APPS = [
+    'common.apps.CommonConfig',
+    'pybo.apps.PyboConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +59,8 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        #templates 파일 설정하기.
+        'DIRS': [ BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,3 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+#화면 예쁘게 꾸미기 설정 파일에 스태틱 디레터리 위치 추가.
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
