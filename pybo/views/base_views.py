@@ -1,5 +1,6 @@
 from ..models import Question
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
 
 
 #페이지 기능 구현하기 위한 사용 모듈
@@ -11,16 +12,24 @@ def index(request):
 
     #입력 인자
     page = request.GET.get('page', '1') #페이지
+    kw = request.GET.get('kw', '')      #검색어
 
     #조회
     question_list = Question.objects.order_by('-create_date')
+    if kw:
+        question_list = question_list.filter(
+            Q(subject__icontains=kw) |                      #제목 검색
+            Q(content__icontains=kw) |                      #내용 검색
+            Q(author__username__icontains=kw) |             #질문 글쓴이 검색
+            Q(answer__author__username__icontains=kw)       #답변 글쓴이 검색
+        ).distinct()
 
     #페이징 처리
     paginator = Paginator(question_list, 10)
     page_obj = paginator.get_page(page)
 
     #리스트 내용
-    context = {'question_list' : page_obj}#question_list}
+    context = {'question_list' : page_obj, 'page':page, 'kw':kw}#question_list} #page와 kw 추가.
 
     #render로 화면 출력하기
     return render(request, 'pybo/question_list.html', context)
